@@ -1,0 +1,17 @@
+{% if page.has_previous %}
+  <div class="pagination pageination_previous_page">
+      <a class="previous_page" href="?page={{ page.previous_page_number }}">
+        <i class='fas fa-long-arrow-alt-left next_arrow'></i>
+      &nbsp;&nbsp;&nbsp;<span class="next_page_text">صفحه قبل</span>
+      </a>
+  </div>
+{% endif %}
+
+{% if page.has_next %}
+<div class="pagination pageination_next_page">
+    <a class="next_page" href="?page={{ page.next_page_number }}">
+      <i class='fas fa-long-arrow-alt-right next_arrow'></i>
+      &nbsp;&nbsp;&nbsp;<span class="next_page_text">صفحه بعد</span>
+    </a>
+</div>
+{% endif %}

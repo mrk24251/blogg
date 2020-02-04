@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{%load static %}
+{% load blogg_tags %}
+{% load jalali_tags %}
+{% load tz %}
+{% block title %}My Blog{% endblock %}
+
+{% block Header %}
+<div class="HeaderImage">
+    <h1 class="websiteName">عرفان</h1>
+    <h2 class="quato">«خدا در ابتدای خلقت سه چیز آفرید حُسن ‌و عشق و نا امیدی و نامشان را عقل گذاشت.»</h2>
+    <h3 class="ref">شیخ اشراق</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+    {% if tag %}
+    <h2>Posts tagged with "{{ tag.name }}"</h2>
+    {% endif %}
+      <h2>
+        <span class="post_title">
+          {{ post.title }}
+        </span>
+      </h2>
+    <div class="ss">
+        <span class="tags"><span class="glyphicon glyphicon-tag TagIcon" ></span> &nbsp;{% for tag in post.tags.all %}
+        <a class="tag_name" href="{% url "blog:post_list_by_tag" tag.slug %}">
+            {{ tag.name }}
+        </a>
+        {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </span>
+        <span class="publish_date"> &nbsp;&nbsp;&nbsp;<i class='far fa-clock time_icon'></i>&nbsp;&nbsp;{{post.publish|localtime|to_jalali:'%y/%m/%d'}}</span>
+      <span class="date">
+          &nbsp;&nbsp;&nbsp;
+          <i class='fas fa-pen writter_icon'></i>
+          &nbsp;{{ post.author }}
+      </span>
+    </div>
+    <img class="rounded post_image" src='{{post.images.url}}' />
+    <p class="list_post_body">
+        {{ post.body|truncatewords:90 }}
+    </p>
+    <div class="reading_more">
+        <a class="reading_more_button"  href="{{ post.get_absolute_url }}">مطالعه بیشتر</a>
+    </div>
+    {% endfor %}
+  {% include "blog/pagination.html" with page=posts %}
+{% endblock %}

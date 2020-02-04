@@ -1,0 +1,69 @@
+{% load blogg_tags %}
+{% load static %}
+<html>
+    <head>
+      <title>{% block title %}{% endblock %}</title>
+      <link href="{% static "css/blog.css" %}" rel="stylesheet">
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+        <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src="{%static "jquery/blog.js"  %}"></script>
+    </head>
+    <body>
+        <div class="topnav2 navbar2">
+          <span onclick="onClick()" class="glyphicon glyphicon-menu-hamburger"></span>
+        </div>
+        <div class="topnav navbar1">
+          <div class="search-container">
+            <form action="/action_page.php">
+              <input type="text" placeholder="جستجو...." name="search">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+          <a href="#about" class="active">خانه</a>
+          <a href="#contact">درباره ما</a>
+        </div>
+
+      <div id="Header">
+        {% block Header %}
+        {% endblock %}
+      </div>
+      <div class="container-fluid containing">
+          <div class="row justify-content-around">
+              <div class="col-md-7">
+                {% block content %}
+                {% endblock %}
+              </div>
+              <div class="col-md-2" >
+                  <div>
+
+                  </div>
+                  <div>
+
+                  </div>
+<!--                <h3>Latest posts</h3>-->
+<!--                {% show_latest_posts 3 %}-->
+<!--                 <h3>Most commented posts</h3>-->
+<!--                {% get_most_commented_posts 3 as most_commented_posts %}-->
+<!--                <ul>-->
+<!--                    {% for post in most_commented_posts %}-->
+<!--                    <li>-->
+<!--                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>-->
+<!--                    </li>-->
+<!--                    {% endfor %}-->
+<!--                </ul>-->
+<!--                <p><a href="{% url "blog:post_feed" %}">Subscribe to my RSS feed</a></p>-->
+              </div>
+        </div>
+      </div>
+    </body>
+</html>
