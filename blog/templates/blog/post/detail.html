@@ -1,56 +1,98 @@
 {% extends "blog/base.html" %}
 {% load blogg_tags %}
+{% load jalali_tags %}
+{% load tz %}
 {% block title %}{{ post.title }}{% endblock %}{% block content %}
 
-<h1>{{ post.title }}</h1>
+<div class="post_detail_div">
+    <h1 class="post_detail_title">{{ post.title }}</h1>
+    <span class="date"> &nbsp;&nbsp;&nbsp;<i class='fas fa-pen writter_icon'></i>&nbsp;{{ post.author }}</span>
+    <span class="publish_date"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-clock time_icon'></i>&nbsp;{{post.publish|localtime|to_jalali:'%y/%m/%d'}}</span>
+    <span class="comment_count"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-comments comment_icon'></i>&nbsp;{{comments.count}}</span>
+</div>
+<di>
+    <img class="rounded post_image col_sm_12" src='{{post.images.url}}' />
+</di>
 
-<p class="date">
-    Published {{ post.publish }} by {{ post.author }}
-</p>
+<!--<p class="date">-->
+<!--    Published {{ post.publish }} by {{ post.author }}-->
+<!--</p>-->
+<div class="list_post_body detail_post_body">
+    {{ post.body|markdown }}
+</div>
 
-{{ post.body|markdown }}
-<p>
+<div class="footer_detail_post">
+    <span class="glyphicon glyphicon-tag tag_icon" ></span>
+    {% for tag in post.tags.all %}
+        <a class="post_detail_tags" href="{% url "blog:post_list_by_tag" tag.slug %}">{{ tag.name }}#</a>
+    {% endfor %}
+</div>
+
+<div class="footer_detail_post">
+    <i class='fas fa-share-alt tag_icon'></i>
     <a href="{% url "blog:post_share" post.id %}">
-        Share this post
+        <i class="mail_icon fas fa-envelope-open-text"></i>
     </a>
+</div>
+
+<p>
 </p>
 
-<h2>Similar posts</h2>
+<div class="row related_post">
 {% for post in similar_posts %}
-    <p>
-     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    </p>
+    <div class="col-lg-3">
+        <img class="rounded related_post_image" src='{{post.images.url}}' />
+        <p class="related_post_title">{{ post.title }}</p>
+        <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
+        <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
+        <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
+    </div>
+        <div class="col-lg-3">
+        <img class="rounded related_post_image" src='{{post.images.url}}' />
+        <p class="related_post_title">{{ post.title }}</p>
+        <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
+        <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
+        <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
+    </div>
+        <div class="col-lg-3">
+        <img class="rounded related_post_image" src='{{post.images.url}}' />
+        <p class="related_post_title">{{ post.title }}</p>
+        <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
+        <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
+        <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
+    </div>
     {% empty %}
     There are no similar posts yet.
 {% endfor %}
+</div>
 
-{% with comments.count as total_comments %}
-    <h2>
-        {{ total_comments }} comment{{ total_comments|pluralize }}
-    </h2>
-{% endwith %}
+<!--{% with comments.count as total_comments %}-->
+<!--    <h2>-->
+<!--        {{ total_comments }} comment{{ total_comments|pluralize }}-->
+<!--    </h2>-->
+<!--{% endwith %}-->
 
-{% for comment in comments %}
-    <div class="comment">
-        <p class="info">
-            Comment {{ forloop.counter }} by {{ comment.name }}
-            {{ comment.created }}
-        </p>
-            {{ comment.body|linebreaks }}
-    </div>
-    {% empty %}
-    <p>There are no comments yet.</p>
-{% endfor %}
+<!--{% for comment in comments %}-->
+<!--    <div class="comment">-->
+<!--        <p class="info">-->
+<!--            Comment {{ forloop.counter }} by {{ comment.name }}-->
+<!--            {{ comment.created }}-->
+<!--        </p>-->
+<!--            {{ comment.body|linebreaks }}-->
+<!--    </div>-->
+<!--    {% empty %}-->
+<!--    <p>There are no comments yet.</p>-->
+<!--{% endfor %}-->
 
-{% if new_comment %}
-    <h2>Your comment has been added.</h2>
-{% else %}
-    <h2>Add a new comment</h2>
-    <form action="." method="post">
-        {{ comment_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Add comment"></p>
-    </form>
-{% endif %}
+<!--{% if new_comment %}-->
+<!--    <h2>Your comment has been added.</h2>-->
+<!--{% else %}-->
+<!--    <h2>Add a new comment</h2>-->
+<!--    <form action="." method="post">-->
+<!--        {{ comment_form.as_p }}-->
+<!--        {% csrf_token %}-->
+<!--        <p><input type="submit" value="Add comment"></p>-->
+<!--    </form>-->
+<!--{% endif %}-->
 
 {% endblock %}
