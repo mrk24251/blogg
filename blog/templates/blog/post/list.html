@@ -14,10 +14,10 @@
 {% endblock %}
 
 {% block content %}
-    {% for post in posts %}
     {% if tag %}
-    <h2>Posts tagged with "{{ tag.name }}"</h2>
+        <h2 class="tag_list_h2">پست ها با  واژه کاربردی "{{ tag.name }}"</h2>
     {% endif %}
+    {% for post in posts %}
       <h2>
         <span class="post_title">
           {{ post.title }}

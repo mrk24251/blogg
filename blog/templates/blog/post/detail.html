@@ -40,6 +40,7 @@
 
 <div class="row related_post">
 {% for post in similar_posts %}
+    {% if forloop.counter < 5 %}
     <div class="col-lg-3">
         <img class="rounded related_post_image" src='{{post.images.url}}' />
         <p class="related_post_title">{{ post.title }}</p>
@@ -47,52 +48,68 @@
         <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
         <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
     </div>
-        <div class="col-lg-3">
-        <img class="rounded related_post_image" src='{{post.images.url}}' />
-        <p class="related_post_title">{{ post.title }}</p>
-        <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
-        <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
-        <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
-    </div>
-        <div class="col-lg-3">
-        <img class="rounded related_post_image" src='{{post.images.url}}' />
-        <p class="related_post_title">{{ post.title }}</p>
-        <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
-        <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
-        <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
-    </div>
+    {% endif %}
     {% empty %}
     There are no similar posts yet.
 {% endfor %}
 </div>
 
-<!--{% with comments.count as total_comments %}-->
-<!--    <h2>-->
-<!--        {{ total_comments }} comment{{ total_comments|pluralize }}-->
-<!--    </h2>-->
-<!--{% endwith %}-->
+<span class="comment_title">
+    {{comments.count}}
+نظر </span>
 
-<!--{% for comment in comments %}-->
-<!--    <div class="comment">-->
-<!--        <p class="info">-->
-<!--            Comment {{ forloop.counter }} by {{ comment.name }}-->
-<!--            {{ comment.created }}-->
-<!--        </p>-->
-<!--            {{ comment.body|linebreaks }}-->
-<!--    </div>-->
-<!--    {% empty %}-->
-<!--    <p>There are no comments yet.</p>-->
-<!--{% endfor %}-->
+{% for comment in comments %}
+<div class="comment">
+    <div>
+        <img class="comment_image" src='/static/img/person.jpg' />
+        <span class="comment_name" >{{comment.name}}</span>
+    </div>
+    <div class="comment_body">
+        {{comment.body}}
+    </div>
+    <div class="comment_date">
+        <span class="comment_date_date">
+            {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
+            <i class='far fa-calendar-alt comment_date_icon'></i>
+        </span>
+    </div>
+</div>
+{% endfor %}
 
-<!--{% if new_comment %}-->
-<!--    <h2>Your comment has been added.</h2>-->
-<!--{% else %}-->
-<!--    <h2>Add a new comment</h2>-->
-<!--    <form action="." method="post">-->
-<!--        {{ comment_form.as_p }}-->
-<!--        {% csrf_token %}-->
-<!--        <p><input type="submit" value="Add comment"></p>-->
-<!--    </form>-->
-<!--{% endif %}-->
+<span class="add_comment">
+    اضافه کردن نظر
+</span>
+
+{% if new_comment %}
+    <h2 class="comment_h2">نظر شما اضافه شد</h2>
+{% else %}
+    <form action="." method="post">
+        <div class="row comment_add_row">
+            <div class="col-md-9 comment_add">
+                <i class='fas fa-user comment_add_icon'></i>
+                <input class="comment_adding" type="text" placeholder="نام و نام خانوادگی" name="name">
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+        <div class="row comment_add_row">
+            <div class="col-md-9 comment_add">
+                <i class="far fa-envelope comment_add_icon"></i>
+                <input class="comment_adding" type="text" placeholder="آدرس ایمیل" name="email">
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+        <div class="row comment_add_row">
+            <div class="col-md-12 comment_add">
+                <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
+                <textarea placeholder="نظرتتان را بیان کنید" class="comment_adding comment_add_textarea" name="body"></textarea>
+            </div>
+        </div>
+
+        {% csrf_token %}
+        <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
+    </form>
+{% endif %}
 
 {% endblock %}

@@ -2,21 +2,47 @@
 {% block title %}Share a post{% endblock %}
 {% block content %}
     {% if sent %}
-        <h1>E-mail successfully sent</h1>
-        <p>
-            "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
-        </p>
+        <h1 class="share_page_h1">ایمیل با موفقیت ارسال شد</h1>
     {% else %}
-        <h1>Share "{{ post.title }}" by e-mail</h1>
+        <h1 class="share_page_h1">به اشتراک گذاری "{{ post.title }}" با استفاده از ایمیل</h1>
+
         <form action="." method="post">
-                {% for field in form %}
-                <div>
-                    {{ field.errors }}
-                    {{ field.label_tag }} {{ field }}
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class='fas fa-user comment_add_icon'></i>
+                    {{ name.error }}
+                    <input class="comment_adding" type="text" placeholder="نام و نام خانوادگی" name="name">
                 </div>
-            {% endfor %}
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class="far fa-envelope comment_add_icon"></i>
+                    {{ email.error }}
+                    <input class="comment_adding" type="text" placeholder="آدرس ایمیل فرستنده" name="email">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class="far fa-envelope comment_add_icon"></i>
+                    <input class="comment_adding" type="text" placeholder="آدرس ایمیل گیرنده" name="to">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="col-md-12 comment_add">
+                    <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
+                    <textarea placeholder="متن پیشنهادی خود برای معرفی این پست وارد کنید." class="comment_adding comment_add_textarea" name="comments"></textarea>
+                </div>
+            </div>
+
             {% csrf_token %}
-            <input type="submit" value="Send e-mail">
+            <p class="comment_submit_div"><input type="submit" class="comment_submit" value="ارسال ایمیل"></p>
         </form>
+
     {% endif %}
 {% endblock %}

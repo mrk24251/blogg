@@ -120,9 +120,21 @@ def post_search(request):
             results = Post.objects.annotate(
                 similarity=TrigramSimilarity('title', query),
             ).filter(similarity__gt=0.3).order_by('-similarity')
+
+    paginator = Paginator(results, 4)  # 3 posts in each page
+    page = request.GET.get('page',1)
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+    # If page is not an integer deliver the first page
+        results = paginator.page(1)
+    except EmptyPage:
+    # If page is out of range deliver last page of results
+        results = paginator.page(paginator.num_pages)
     return render(request,
                   'blog/post/search.html',
-                  {'form': form,
-                   'query': query,
-                   'results': results,
+                  {'page': page,
+                    'form': form,
+                    'query': query,
+                    'results': results,
                    })
