@@ -26,6 +26,7 @@ button{
 
 .containing{
     text-align:right;
+    padding-top:30px;
 }
 
 a {
@@ -70,7 +71,7 @@ h2 {
     background-size: cover;
     width:100%;
     background-image: url('../img/abr2.jpeg');
-    margin-bottom: 75px;
+    margin-bottom: 45px;
 }
 
 .post_title{
@@ -211,7 +212,7 @@ h2 {
   display: block;
   color: black;
   text-align: center;
-  padding: 14px 16px;
+  padding: 17px 16px;
   text-decoration: none;
   font-size: 17px;
   color: #fff;
@@ -270,9 +271,9 @@ h2 {
     text-align: right;
   }
   .topnav .search-container button{
-    position: relative;
-    top: -63px;
     padding: 19px 18px;
+    margin-left:0px;
+    margin-top:0px;
   }
   .topnav input[type=text] {
     border: 1px solid #ccc;
@@ -484,7 +485,7 @@ span.date {
 
 .comment_adding{
     padding:10px;
-    width:90%;
+    width:100%;
     display:inline-block;
     background-color:#eee;
     font-size:12px;
@@ -496,17 +497,20 @@ span.date {
 
 .comment_add{
     background-color: #eee;
-    display: block;
+    display: flex;
     padding: 10px 15px;
     float: right !important;
     margin-bottom:15px;
     margin-right: 15px;
+    width:100%;
 }
 
 .comment_add_icon{
     width:20px;
     font-size:14px;
     color:#aaa;
+    position:relative;
+    top:10px;
 }
 
 .comment_add_textarea{
@@ -515,7 +519,7 @@ span.date {
 
 .comment_add_icon_textarea{
     position: relative;
-    top: -128px;
+    top: 15px;
 }
 
 .comment_submit{
@@ -529,7 +533,7 @@ span.date {
 }
 
 .comment_add_row{
-    margin-left:15px !important;
+    margin-left:0px !important;
 }
 
 @media only screen and (max-width: 767px) {
@@ -587,6 +591,10 @@ span.date {
     margin-top:35px;
     color:green;
     margin-bottom:50px;
+}
+
+.search_top_nav_form{
+    display:flex
 }
 
 /* pagination */

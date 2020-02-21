@@ -87,7 +87,7 @@
         <div class="row comment_add_row">
             <div class="col-md-9 comment_add">
                 <i class='fas fa-user comment_add_icon'></i>
-                <input class="comment_adding" type="text" placeholder="نام و نام خانوادگی" name="name">
+                <input class="comment_adding" maxlength="80" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
             </div>
         </div>
 
@@ -95,15 +95,15 @@
         <div class="row comment_add_row">
             <div class="col-md-9 comment_add">
                 <i class="far fa-envelope comment_add_icon"></i>
-                <input class="comment_adding" type="text" placeholder="آدرس ایمیل" name="email">
+                <input class="comment_adding" required="required" type="email" placeholder="آدرس ایمیل" name="email">
             </div>
         </div>
 
         <div class="w-100"></div>
         <div class="row comment_add_row">
-            <div class="col-md-12 comment_add">
+            <div class="comment_add">
                 <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
-                <textarea placeholder="نظرتتان را بیان کنید" class="comment_adding comment_add_textarea" name="body"></textarea>
+                <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
             </div>
         </div>
 

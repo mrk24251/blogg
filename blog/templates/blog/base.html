@@ -14,6 +14,7 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
         <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+      <link rel="icon" href="{% static "img/favicon.png" %}" sizes="16x16">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
@@ -28,13 +29,13 @@
         </div>
         <div class="topnav navbar1">
           <div class="search-container">
-            <form action="/search/">
+            <form class="search_top_nav_form" action="/search/">
               <input type="text" placeholder="جستجو...." name="query">
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
           </div>
           <a href="#about" class="active">خانه</a>
-          <a href="#contact">درباره ما</a>
+<!--          <a href="#contact">درباره ما</a>-->
         </div>
 
       <div id="Header">

@@ -96,8 +96,10 @@ def post_share(request, post_id):
             cd = form.cleaned_data
             post_url = request.build_absolute_uri(
                 post.get_absolute_url())
-            subject = '{} ({}) recommends you reading "{}"'.format(cd['name'], cd['email'], post.title)
-            message = 'Read "{}" at {}\n\n{}\'s comments: {}'.format(post.title, post_url, cd['name'], cd['comments'])
+            subject = 'پیشنهاد عرفانی {}'.format(cd['name'])
+            message = ' \nسلام دوست من ' \
+                      ' \n{} با ایمیل {} پیشنهاد می کند پست {} را به آدرس {} مطالعه کنید \n' \
+                      '\n{}\n'.format(cd['name'],cd['email'],post.title, post_url, cd['comments'])
             send_mail(subject, message, 'admin@myblog.com',
                       [cd['to']])
             sent = True

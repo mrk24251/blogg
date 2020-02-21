@@ -8,6 +8,12 @@ class EmailPostForm(forms.Form):
     comments = forms.CharField(required=False,
     widget=forms.Textarea)
 
+    def clean_name(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Passwords don\'t match.')
+        return cd['password2']
+
 class CommentForm(forms.ModelForm):
 
     class Meta:
