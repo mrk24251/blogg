@@ -65,13 +65,18 @@
         <span class="comment_name" >{{comment.name}}</span>
     </div>
     <div class="comment_body">
-        {{comment.body}}
+        {{comment.body|linebreaks}}
     </div>
     <div class="comment_date">
+        <button type="button" class="comment_date_date comment_date reply" data-toggle="modal" data-target="#exampleModal" id="reply" onclick="popUp()">
+            <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
+            پاسخ
+        </button>
         <span class="comment_date_date">
             {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
             <i class='far fa-calendar-alt comment_date_icon'></i>
         </span>
+
     </div>
 </div>
 {% endfor %}
@@ -87,7 +92,7 @@
         <div class="row comment_add_row">
             <div class="col-md-9 comment_add">
                 <i class='fas fa-user comment_add_icon'></i>
-                <input class="comment_adding" maxlength="80" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
+                <input class="comment_adding" maxlength="30" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
             </div>
         </div>
 
@@ -111,5 +116,47 @@
         <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
     </form>
 {% endif %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">پاسخ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <form action="." method="post" id="popUpForm">
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class='fas fa-user comment_add_icon'></i>
+                    <input class="comment_adding" maxlength="30" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class="far fa-envelope comment_add_icon"></i>
+                    <input class="comment_adding" required="required" type="email" placeholder="آدرس ایمیل" name="email">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="comment_add">
+                    <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
+                    <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
+                </div>
+            </div>
+            <input type='hidden' class='parent' name="parent" value='ss'>
+            {% csrf_token %}
+            <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

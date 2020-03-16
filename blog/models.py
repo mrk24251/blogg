@@ -49,15 +49,26 @@ class Comment(models.Model):
     post = models.ForeignKey(Post,
             on_delete=models.CASCADE,
             related_name='comments')
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=30)
     email = models.EmailField()
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+    parent = models.ForeignKey("self",null=True,blank=True,on_delete=models.CASCADE,related_name='parent_comment',default=None)
+    reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='reply_to_comment',default=None)
 
     class Meta:
         ordering = ('created',)
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
+
+    def children(self):
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True
