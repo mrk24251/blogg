@@ -10,13 +10,10 @@
     <span class="publish_date"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-clock time_icon'></i>&nbsp;{{post.publish|localtime|to_jalali:'%y/%m/%d'}}</span>
     <span class="comment_count"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-comments comment_icon'></i>&nbsp;{{comments.count}}</span>
 </div>
-<di>
+<div>
     <img class="rounded post_image col_sm_12" src='{{post.images.url}}' />
-</di>
+</div>
 
-<!--<p class="date">-->
-<!--    Published {{ post.publish }} by {{ post.author }}-->
-<!--</p>-->
 <div class="list_post_body detail_post_body">
     {{ post.body|markdown }}
 </div>
@@ -30,8 +27,20 @@
 
 <div class="footer_detail_post">
     <i class='fas fa-share-alt tag_icon'></i>
-    <a href="{% url "blog:post_share" post.id %}">
+    <a class="share_button" href="{% url "blog:post_share" post.id %}">
         <i class="mail_icon fas fa-envelope-open-text"></i>
+    </a>
+
+    <a class="share_button" href="https://api.whatsapp.com/send?text={{request.build_absolute_uri}}" target="_blank">
+        <i class='fab fa-whatsapp-square whatsappIcon'></i>
+    </a>
+
+    <a class="share_button" href="https://telegram.me/share/url?url=&text={{request.build_absolute_uri}}" target="_blank">
+        <i class='fab fa-telegram telegramIcon'></i>
+    </a>
+
+    <a class="share_button" href="https://twitter.com/share?url={{request.build_absolute_uri}}" target="_blank">
+        <i class='fab fa-twitter-square telegramIcon'></i>
     </a>
 </div>
 
@@ -65,13 +74,20 @@
         <span class="comment_name" >{{comment.name}}</span>
     </div>
     <div class="comment_body">
-        {{comment.body}}
+        {{comment.body|linebreaks}}
+        {% for children in comment.children %}
+            {{ children.body|linebreaks }}
+        {% endfor %}
     </div>
-    <div class="comment_date">
-        <span class="comment_date_date">
+    <div class="comment_footer_div">
+        <span class="comment_date_date comment_date">
             {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
             <i class='far fa-calendar-alt comment_date_icon'></i>
         </span>
+        <button type="button" class="comment_date_date comment_date reply" data-toggle="modal" data-target="#exampleModal" id="reply" onclick="popUp()">
+            <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
+            پاسخ
+        </button>
     </div>
 </div>
 {% endfor %}
@@ -81,13 +97,13 @@
 </span>
 
 {% if new_comment %}
-    <h2 class="comment_h2">نظر شما اضافه شد</h2>
+    <h2 class="comment_h2">نظر شما اضافه شد در صورت عدم مغایرت با چارچوب بلاگ به زودی منتشر می گردد.</h2>
 {% else %}
     <form action="." method="post">
         <div class="row comment_add_row">
             <div class="col-md-9 comment_add">
                 <i class='fas fa-user comment_add_icon'></i>
-                <input class="comment_adding" maxlength="80" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
+                <input class="comment_adding" maxlength="30" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
             </div>
         </div>
 
@@ -106,10 +122,50 @@
                 <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
             </div>
         </div>
-
         {% csrf_token %}
         <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
     </form>
-{% endif %}
 
+{% endif %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">پاسخ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body" id="popUpForm">
+        <form action="." method="post">
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class='fas fa-user comment_add_icon'></i>
+                    <input class="comment_adding" maxlength="30" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="col-md-9 comment_add">
+                    <i class="far fa-envelope comment_add_icon"></i>
+                    <input class="comment_adding" required="required" type="email" placeholder="آدرس ایمیل" name="email">
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="row comment_add_row">
+                <div class="comment_add">
+                    <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
+                    <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
+                </div>
+            </div>
+            {% csrf_token %}
+            <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

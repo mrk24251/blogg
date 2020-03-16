@@ -12,7 +12,10 @@ $(document).ready(function(){
         } else {
             $(".topnav2").addClass("navbar2");
         }
+      });
 
+      $(".comment_adding").click(function(){
+         $("popUpForm").removeClass("comment_add_icon");
       });
 //          $(".topnav").hide();
 //    $(".glyphicon").on("click", function () {
