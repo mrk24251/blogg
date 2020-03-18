@@ -47,17 +47,19 @@ h2 {
 .HeaderImage{
     text-align:center;
     margin:auto;
+    color: #111;
 }
 
 .websiteName{
     border: 0px solid ;
-    font-size:100px;
+    font-size:60px;
     padding-top:25px;
     font-family:Vazir
 }
 
 .quato{
     padding-top:25px;
+    font-size: 22px;
 }
 
 .ref{
@@ -301,7 +303,7 @@ h2 {
     background-color:#000;
     border-top: 10px solid rgb(50,220,140);
     color:#fff;
-    padding:12px 15px;
+    padding: 0px 15px 9px;
     margin-top:25px;
     font-size:18px;
     margin-bottom:20px;
@@ -373,8 +375,8 @@ span.date {
 }
 
 .footer_detail_post{
-    display:flex;
     margin-bottom:25px;
+    display:flex;
 }
 
 .mail_icon{
@@ -440,26 +442,39 @@ span.date {
 }
 
 .comment_image{
-    width: 65px;
-    height: 55px;
+    width: 45px;
+    height: 40px;
 }
 
 .comment_name{
-    font-size: 17px;
+    font-size: 13px;
     padding: 10px;
 }
 
 .comment_body{
-    font-size: 13px;
+    font-size: 12px;
     padding: 20px 0px;
     color: rgb(60,60,60);
 }
 
 .comment{
     padding: 15px 28px;
-    border: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     border-radius: 2px;
-    margin-bottom: 25px;
+    margin-bottom: 8px;
+}
+
+.children_div{
+    background-color: rgb(245,245,245);
+    margin-top: 25px;
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 370px) {
+    .children_div .comment_date_date_span{
+        display:none;
+    }
 }
 
 .comment_date{
@@ -471,7 +486,19 @@ span.date {
 
 .comment_date_date{
     background-color:rgb(50,220,140);
-    padding: 8px 15px;
+    padding: 5px 15px;
+    display: inline-block;
+    text-align: -webkit-match-parent;
+    width:103px;
+    margin-right:10px;
+}
+
+.reply{
+    cursor:pointer;
+}
+
+.comment_footer_div{
+    text-align:left;
 }
 
 .add_comment{
@@ -536,14 +563,36 @@ span.date {
     margin-left:0px !important;
 }
 
-@media only screen and (max-width: 767px) {
-    .comment_submit_div{
-        margin-left:15px;
-    }
+.whatsappIcon{
+    color:rgb(50,180,50);
+    font-size: 30px;
+    border-radius: 12% 12%;
+}
+
+.telegramIcon{
+    font-size: 30px;
+    color:rgb(50,50,250);
+}
+
+.share_button{
+    margin-left:12px;
 }
 
 .comment_h2{
     color: rgb(50,220,140);
+}
+
+.modal-title{
+    color:rgb(120,120,120);
+    font-size: 19px;
+}
+
+.modal-header{
+    direction: rtl;
+}
+
+.modal-header .close{
+    margin: -1rem auto -1rem 0rem !important;
 }
 
 .tag_list_h2{

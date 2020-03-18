@@ -55,13 +55,39 @@ def post_detail(request, year, month, day, post):
     new_comment = None
 
     if request.method == 'POST':
-        # A comment was posted
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
             new_comment.post = post
+            parent_obj=None
+            try:
+                parent_id=int(request.POST.get("parent_id"))
+            except:
+                parent_id=None
+
+            if parent_id:
+                parent_qs=Comment.objects.filter(id=parent_id)
+                if parent_qs.exists() and parent_qs.count() == 1:
+                    parent_obj=parent_qs[0]
+
+            # parent_qs=Comment.objects.filter(id=2)[0]
+            new_comment.parent= parent_obj
+
+            reply_to_obj=None
+            try:
+                reply_to_id=int(request.POST.get("reply_to_id"))
+            except:
+                reply_to_id=None
+
+            if reply_to_id:
+                reply_to_qs=Comment.objects.filter(id=reply_to_id)
+                if reply_to_qs.exists():
+                    reply_to_obj=reply_to_qs[0]
+
+            new_comment.reply_to = reply_to_obj
+
             # Save the comment to the database
             new_comment.save()
     else:

@@ -55,7 +55,7 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    parent = models.ForeignKey("self",null=True,blank=True,on_delete=models.CASCADE,related_name='parent_comment',default=None)
+    parent = models.ForeignKey("self",null=True,blank=True,on_delete=models.CASCADE,default=None)
     reply_to = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name='reply_to_comment',default=None)
 
     class Meta:
@@ -65,7 +65,7 @@ class Comment(models.Model):
         return 'Comment by {} on {}'.format(self.name, self.post)
 
     def children(self):
-        return Comment.objects.filter(parent=self)
+        return Comment.objects.filter(reply_to=self)
 
     @property
     def is_parent(self):

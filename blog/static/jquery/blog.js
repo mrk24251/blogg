@@ -12,7 +12,13 @@ $(document).ready(function(){
         } else {
             $(".topnav2").addClass("navbar2");
         }
+      });
 
+      $(".reply").on('click',function(){
+        parent_comment=$(this).attr("data-content")
+        reply_to_comment=$(this).attr("data-parent")
+        $("#parent").val(parent_comment);
+        $("#reply_to").val(reply_to_comment);
       });
 //          $(".topnav").hide();
 //    $(".glyphicon").on("click", function () {

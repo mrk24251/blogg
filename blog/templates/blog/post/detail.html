@@ -59,26 +59,52 @@
 نظر </span>
 
 {% for comment in comments %}
+{% if comment.is_parent %}
 <div class="comment">
-    <div>
-        <img class="comment_image" src='/static/img/person.jpg' />
-        <span class="comment_name" >{{comment.name}}</span>
-    </div>
-    <div class="comment_body">
-        {{comment.body|linebreaks}}
-    </div>
-    <div class="comment_date">
-        <button type="button" class="comment_date_date comment_date reply" data-toggle="modal" data-target="#exampleModal" id="reply" onclick="popUp()">
-            <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
-            پاسخ
-        </button>
-        <span class="comment_date_date">
-            {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
-            <i class='far fa-calendar-alt comment_date_icon'></i>
-        </span>
+    <div class="comment_div">
+        <div>
+            <img class="comment_image" src='/static/img/person.jpg' />
+            <span class="comment_name" >{{comment.name}}</span>
+        </div>
+        <div class="comment_body">
+            {{comment.body|linebreaks}}
+        </div>
+        <div class="comment_date">
+            <button data-content={{comment.id}} data-parent="{% if comment.reply_to %}{{comment.reply_to.id}}{% else %}{{comment.id}}{% endif %}" type="button" class="comment_date_date comment_date reply" data-toggle="modal" value={{comment.id}} data-target="#exampleModal" id="reply" onclick="popUp()">
+                <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                پاسخ
+            </button>
+            <span class="comment_date_date">
+                {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
+                <i class='far fa-calendar-alt comment_date_icon'></i>
+            </span>
 
+        </div>
     </div>
+    {% for children in comment.children %}
+    <div class="children_div">
+        <div>
+            <img class="comment_image" src='/static/img/person.jpg' />
+            <span class="comment_name" > {{children.name}} در پاسخ  {{children.parent.name}} </span>
+        </div>
+        <div class="comment_body">
+            {{children.body|linebreaks}}
+        </div>
+        <div class="comment_date">
+            <button data-content={{comment.id}} data-parent="{% if comment.reply_to %}{{comment.reply_to.id}}{% else %}{{comment.id}}{% endif %}" type="button" class="comment_date_date comment_date reply" data-toggle="modal" value={{comment.id}} data-target="#exampleModal" id="reply" onclick="popUp()">
+                <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                پاسخ
+            </button>
+            <span class="comment_date_date comment_date_date_span">
+                {{children.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
+                <i class='far fa-calendar-alt comment_date_icon'></i>
+            </span>
+
+        </div>
+    </div>
+    {% endfor %}
 </div>
+{% endif %}
 {% endfor %}
 
 <span class="add_comment">
@@ -150,7 +176,8 @@
                     <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
                 </div>
             </div>
-            <input type='hidden' class='parent' name="parent" value='ss'>
+            <input type='hidden' id='parent' name="parent_id">
+            <input type='hidden' id='reply_to' name="reply_to_id">
             {% csrf_token %}
             <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
         </form>
