@@ -18,8 +18,6 @@ def total_posts():
 def show_latest_posts(count=3):
     latest_posts = Post.published.order_by('-publish')[:count]
     return latest_posts
-    return latest_posts
-    return latest_posts
 
 @register.simple_tag
 def get_most_commented_posts(count=5):
