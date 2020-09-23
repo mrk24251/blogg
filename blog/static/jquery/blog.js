@@ -14,8 +14,16 @@ $(document).ready(function(){
         }
       });
 
+<<<<<<< HEAD
       $(".comment_adding").click(function(){
          $("popUpForm").removeClass("comment_add_icon");
+=======
+      $(".reply").on('click',function(){
+        parent_comment=$(this).attr("data-content")
+        reply_to_comment=$(this).attr("data-parent")
+        $("#parent").val(parent_comment);
+        $("#reply_to").val(reply_to_comment);
+>>>>>>> ddd33160feabd739e576799fd881e409849e40bd
       });
 //          $(".topnav").hide();
 //    $(".glyphicon").on("click", function () {
