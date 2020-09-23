@@ -30,7 +30,7 @@ SECRET_KEY = '_y@z%ue@b&#kn9vyrgdtbakds)**or)j3kgm6@%4b2oyv!(^-c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 2
 # Application definition
@@ -50,7 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 ]
 
+ADMINS = (
+    ('Mohammad reza karami', 'mohammadreza.karami22@yahoo.com'),
+)
+
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,6 +66,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 TEMPLATES = [
     {
@@ -114,9 +121,11 @@ JALALI_DATE_DEFAULTS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mrk120',
-        'USER': 'mrk120',
-        'PASSWORD': 'yahosein',
+        'NAME': 'dbh6tpr6b6p1ic',
+        'USER': 'hxdqmegejxiyva',
+        'PASSWORD': '94f8a53be406f2ca49524d0ac21261fe98568dadf8bcc5b9a979284dccae20fb',
+        'HOST': 'ec2-52-200-134-180.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -156,7 +165,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+)
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"media_cdn")
 MEDIA_URL = '/media/'

@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url("../fonts/Roboto-Bold-webfont.d41d8cd98f00.woff");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("../fonts/Roboto-Regular-webfont.d41d8cd98f00.woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("../fonts/Roboto-Light-webfont.d41d8cd98f00.woff");
+    font-weight: 300;
+    font-style: normal;
+}
