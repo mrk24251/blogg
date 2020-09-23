@@ -121,10 +121,10 @@ JALALI_DATE_DEFAULTS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbh6tpr6b6p1ic',
-        'USER': 'hxdqmegejxiyva',
-        'PASSWORD': '94f8a53be406f2ca49524d0ac21261fe98568dadf8bcc5b9a979284dccae20fb',
-        'HOST': 'ec2-52-200-134-180.compute-1.amazonaws.com',
+        'NAME': 'ddvrpa546mkttf',
+        'USER': 'zomafgxrrwcfpn',
+        'PASSWORD': '6c6cf63b5bef0c850b68e72278fce51c4691127bcc9d853006850226c66a40a1',
+        'HOST': 'ec2-3-224-97-209.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
