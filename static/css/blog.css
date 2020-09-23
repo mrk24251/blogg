@@ -72,7 +72,7 @@ h2 {
     padding:80px;
     background-size: cover;
     width:100%;
-    background:linear-gradient( rgba(204,204,204,0.1), rgba(200,200,200,0) ), url('../img/abr2.jpeg') no-repeat center center fixed;
+    background:linear-gradient( rgba(204,204,204,0.1), rgba(200,200,200,0) ), url('abr2.jpeg') no-repeat center center fixed;
     background-position: center center;
     -webkit-background-size: cover;
     margin-bottom: 45px;
