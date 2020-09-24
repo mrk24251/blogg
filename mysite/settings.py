@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'jalali_date',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.postgres',
+    'cloudinary',
 ]
 
 ADMINS = (
@@ -171,6 +173,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dt0x3ff8y',
+    'API_KEY': '842463339847471',
+    'API_SECRET': 'd4CUuUKhO4JSVfy9DA41a4KhGGw',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"media_cdn")
 MEDIA_URL = '/media/'
