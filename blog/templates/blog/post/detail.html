@@ -183,7 +183,7 @@
           </div>
           <div class="modal-body" id="popUpForm">
             <form action="." method="post">
-              <div class="modal-body">
+          <div class="modal-body">
                 <div class="row comment_add_row">
                     <div class="col-md-9 comment_add">
                         <i class='fas fa-user comment_add_icon'></i>
@@ -210,12 +210,11 @@
                 <input type='hidden' id='reply_to' name="reply_to_id">
                 {% csrf_token %}
                 <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
-              </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
+    </div>
+</div>
 {% endblock %}
