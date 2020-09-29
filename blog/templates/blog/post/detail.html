@@ -183,7 +183,7 @@
           </div>
           <div class="modal-body" id="popUpForm">
             <form action="." method="post">
-          <div class="modal-body">
+              <div class="modal-body">
                 <div class="row comment_add_row">
                     <div class="col-md-9 comment_add">
                         <i class='fas fa-user comment_add_icon'></i>
@@ -210,25 +210,12 @@
                 <input type='hidden' id='reply_to' name="reply_to_id">
                 {% csrf_token %}
                 <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
-          </div>
-            </form>
-        </div>
-      </div>
-    </div>
-
-
-                <div class="w-100"></div>
-                <div class="row comment_add_row">
-                    <div class="comment_add">
-                        <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
-                        <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
-                    </div>
-                </div>
-                {% csrf_token %}
-                <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
+              </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
 {% endblock %}
