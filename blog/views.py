@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage,\
 PageNotAnInteger
-from .form import EmailPostForm, CommentForm,SearchForm
+from .form import EmailPostForm, EmailPostForm2, CommentForm,SearchForm
 from django.core.mail import send_mail
 from taggit.models import Tag
 from django.db.models import Count
@@ -116,7 +116,7 @@ def post_share(request, post_id):
 
     if request.method == 'POST':
         # Form was submitted
-        form = EmailPostForm(request.POST)
+        form = EmailPostForm2(request.POST)
         if form.is_valid():
             # Form fields passed validation
             cd = form.cleaned_data
@@ -130,7 +130,7 @@ def post_share(request, post_id):
                       [cd['to']])
             sent = True
     else:
-        form = EmailPostForm()
+        form = EmailPostForm2()
     return render(request, 'blog/post/share.html', {'post': post,
                                                     'form': form,
                                                     'sent': sent},
