@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 {% load jalali_tags %}
 {% load tz %}
+
 {% block title %}جستجو{% endblock %}
 {% block content %}
     {% if query %}
@@ -38,7 +39,7 @@
     <p class="no_post">هیچ پستی یافت نشد.</p>
     {% endfor %}
 
-{% include "blog/pagination.html" with page=results %}
+    {% include "blog/pagination.html" with page=results %}
     {% else %}
         <div class="search_page">
             <form class="search_page_form row" action="." method="get">
