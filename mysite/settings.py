@@ -15,20 +15,12 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mrkarami24251@gmail.com'
+EMAIL_HOST_PASSWORD = 'moreka75'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'mrkarami24251@gmail.com'
-# EMAIL_HOST_PASSWORD = 'moreka75'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
