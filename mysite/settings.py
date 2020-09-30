@@ -16,9 +16,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mrkarami24251@gmail.com'
-EMAIL_HOST_PASSWORD = 'Mk16841684'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = 'postmaster@sandbox21953fe094034734ab243752b558d32f.mailgun.org'
+EMAIL_HOST_PASSWORD = '20318d0e0385f2cbc421fb8ff785a772-aff2d1b9-59814de4'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
