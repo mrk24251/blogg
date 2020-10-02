@@ -17,8 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = 'postmaster@sandbox791c381ed0654f96833f78409bcdce76.mailgun.org'
-EMAIL_HOST_PASSWORD = 'cefc447b6e1f4d79136bbb75adc19dec-aff2d1b9-ee16c6a0'
+EMAIL_HOST_USER = 'postmaster@sandbox15acae7cb43744afb71baa85de8589cd.mailgun.org'
+EMAIL_HOST_PASSWORD = '04fe3e309ce637fbcb4a5d2234c59796-aff2d1b9-b8f41873'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

@@ -2,37 +2,39 @@
 {% load blogg_tags %}
 {% load jalali_tags %}
 {% load tz %}
+{% block title %}{{ post.title }}{% endblock %}{% block content %}
 
-{% block title %}{{ post.title }}{% endblock %}
-{% block content %}
-    <div class="post_detail_div">
-        <h1 class="post_detail_title">{{ post.title }}</h1>
-        <span class="date"> &nbsp;&nbsp;&nbsp;<i class='fas fa-pen writter_icon'></i>&nbsp;{{ post.author }}</span>
-        <span class="publish_date"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-clock time_icon'></i>&nbsp;{{post.publish|localtime|to_jalali:'%y/%m/%d'}}</span>
-        <span class="comment_count"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-comments comment_icon'></i>&nbsp;{{comments.count}}</span>
-    </div>
-    <div>
-        <img class="rounded post_image col_sm_12" src='{{post.images.url}}' />
-    </div>
+<div class="post_detail_div">
+    <h1 class="post_detail_title">{{ post.title }}</h1>
+    <span class="date"> &nbsp;&nbsp;&nbsp;<i class='fas fa-pen writter_icon'></i>&nbsp;{{ post.author }}</span>
+    <span class="publish_date"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-clock time_icon'></i>&nbsp;{{post.publish|localtime|to_jalali:'%y/%m/%d'}}</span>
+    <span class="comment_count"> &nbsp;&nbsp;&nbsp;&nbsp;<i class='far fa-comments comment_icon'></i>&nbsp;{{comments.count}}</span>
+</div>
+<di>
+    <img class="rounded post_image col_sm_12" src='{{post.images.url}}' />
+</di>
 
-    <div class="list_post_body detail_post_body">
-        {{ post.body|markdown }}
-    </div>
+<!--<p class="date">-->
+<!--    Published {{ post.publish }} by {{ post.author }}-->
+<!--</p>-->
+<div class="list_post_body detail_post_body">
+    {{ post.body|markdown }}
+</div>
 
-    <div class="footer_detail_post">
-        <span class="glyphicon glyphicon-tag tag_icon" ></span>
-        {% for tag in post.tags.all %}
-            <a class="post_detail_tags" href="{% url "blog:post_list_by_tag" tag.slug %}">{{ tag.name }}#</a>
-        {% endfor %}
-    </div>
+<div class="footer_detail_post">
+    <span class="glyphicon glyphicon-tag tag_icon" ></span>
+    {% for tag in post.tags.all %}
+        <a class="post_detail_tags" href="{% url "blog:post_list_by_tag" tag.slug %}">{{ tag.name }}#</a>
+    {% endfor %}
+</div>
 
     <div class="footer_detail_post">
         <i class='fas fa-share-alt tag_icon'></i>
-        <a class="share_button" href="{% url "blog:post_share" post.id %}">
-            <i class="mail_icon fas fa-envelope-open-text"></i>
-        </a>
+<!--        <a class="share_button" href="{% url "blog:post_share" post.id %}">-->
+<!--            <i class="mail_icon fas fa-envelope-open-text"></i>-->
+<!--        </a>-->
 
-        <a class="share_button" href="https://api.whatsapp.com/send?text={{request.build_absolute_uri}}" target="_blank">
+        <a class="share_button" style="margin-right:15px;" href="https://api.whatsapp.com/send?text={{request.build_absolute_uri}}" target="_blank">
             <i class='fab fa-whatsapp-square whatsappIcon'></i>
         </a>
 
@@ -45,105 +47,124 @@
         </a>
     </div>
 
-    <p>
-    </p>
+<p>
+</p>
 
-    <div class="row related_post">
-    {% for post in similar_posts %}
-        {% if forloop.counter < 5 %}
-        <div class="col-lg-3">
-            <img class="rounded related_post_image" src='{{post.images.url}}' />
-            <p class="related_post_title">{{ post.title }}</p>
-            <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
-            <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
-            <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
-        </div>
-        {% endif %}
-        {% empty %}
-        There are no similar posts yet.
-    {% endfor %}
+<div class="row related_post">
+{% for post in similar_posts %}
+    {% if forloop.counter < 5 %}
+    <div class="col-lg-3">
+        <img class="rounded related_post_image" src='{{post.images.url}}' />
+        <p class="related_post_title">{{ post.title }}</p>
+        <p class="related_post_date">نوشته شده توسط {{post.author}} در تاریخ {{post.publish|localtime|to_jalali:'%y/%m/%d'}}</p>
+        <p class="related_post_body">{{ post.body|truncatewords:30 }}</p>
+        <a class="related_post_read_more" href="{{ post.get_absolute_url }}">مطالعه بیشتر>></a>
     </div>
+    {% endif %}
+    {% empty %}
+    There are no similar posts yet.
+{% endfor %}
+</div>
 
-    <span class="comment_title">
-        {{comments.count}}
-    نظر </span>
+<span class="comment_title">
+    {{comments.count}}
+نظر </span>
 
-    {% for comment in comments %}
-    {% if comment.is_parent %}
-    <div class="comment">
+{% for comment in comments %}
+{% if comment.is_parent %}
+<div class="comment">
+    <div class="comment_div">
         <div>
-            <img class="comment_image" src='/static/img/person.jpg' />
+            <img class="comment_image" src='/static/img/person2.jpg' />
             <span class="comment_name" >{{comment.name}}</span>
         </div>
         <div class="comment_body">
             {{comment.body|linebreaks}}
-            {% for children in comment.children %}
-                {{ children.body|linebreaks }}
-            {% endfor %}
         </div>
-        <div class="comment_footer_div">
-            <span class="comment_date_date comment_date">
-                {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
-                <i class='far fa-calendar-alt comment_date_icon'></i>
-            </span>
-            <button type="button" class="comment_date_date comment_date reply" data-toggle="modal" data-target="#exampleModal" id="reply" onclick="popUp()">
+        <div class="comment_date">
+            <button data-content={{comment.id}} data-parent="{% if comment.reply_to %}{{comment.reply_to.id}}{% else %}{{comment.id}}{% endif %}" type="button" class="reply comment_date_date comment_date" data-toggle="modal" value={{comment.id}} data-target="#exampleModal" onclick="popUp()">
                 <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
                 پاسخ
             </button>
-        <div class="comment_div">
-            <div>
-                <img class="comment_image" src='/static/img/person.jpg' />
-                <span class="comment_name" >{{comment.name}}</span>
-            </div>
-            <div class="comment_body">
-                {{comment.body|linebreaks}}
-            </div>
-            <div class="comment_date">
-                <button data-content={{comment.id}} data-parent="{% if comment.reply_to %}{{comment.reply_to.id}}{% else %}{{comment.id}}{% endif %}" type="button" class="comment_date_date comment_date reply" data-toggle="modal" value={{comment.id}} data-target="#exampleModal" id="reply" onclick="popUp()">
-                    <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                    پاسخ
-                </button>
-                <span class="comment_date_date">
-                    {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
-                    <i class='far fa-calendar-alt comment_date_icon'></i>
-                </span>
+            <span class="comment_date_date">
+                {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
+                <i class='far fa-calendar-alt comment_date_icon'></i>
+            </span>
 
-            </div>
         </div>
-        {% for children in comment.children %}
-        <div class="children_div">
-            <div>
-                <img class="comment_image" src='/static/img/person.jpg' />
-                <span class="comment_name" > {{children.name}} در پاسخ  {{children.parent.name}} </span>
-            </div>
-            <div class="comment_body">
-                {{children.body|linebreaks}}
-            </div>
-            <div class="comment_date">
-                <button data-content={{comment.id}} data-parent="{% if comment.reply_to %}{{comment.reply_to.id}}{% else %}{{comment.id}}{% endif %}" type="button" class="comment_date_date comment_date reply" data-toggle="modal" value={{comment.id}} data-target="#exampleModal" id="reply" onclick="popUp()">
-                    <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
-                    پاسخ
-                </button>
-                <span class="comment_date_date comment_date_date_span">
-                    {{children.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
-                    <i class='far fa-calendar-alt comment_date_icon'></i>
-                </span>
-
-            </div>
-        </div>
-        {% endfor %}
     </div>
-    {% endif %}
+    {% for children in comment.children %}
+    <div class="children_div">
+        <div>
+            <img class="comment_image" src='/static/img/person2.jpg' />
+            <span class="comment_name" > {{children.name}} در پاسخ  {{children.parent.name}} </span>
+        </div>
+        <div class="comment_body">
+            {{children.body|linebreaks}}
+        </div>
+        <div class="comment_date">
+            <button data-content={{children.id}} data-parent="{% if children.reply_to %}{{children.reply_to.id}}{% else %}{{children.id}}{% endif %}" type="button" class="comment_date_date comment_date reply" data-toggle="modal" value={{comment.id}} data-target="#exampleModal" id="reply" onclick="popUp()">
+                <i class='fa fa-mail-reply-all comment_date_icon'></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                پاسخ
+            </button>
+            <span class="comment_date_date">
+                {{comment.created|localtime|to_jalali:'%y/%m/%d'}} &nbsp;&nbsp;
+                <i class='far fa-calendar-alt comment_date_icon'></i>
+            </span>
+        </div>
+    </div>
     {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
 
-    <span class="add_comment">
-        اضافه کردن نظر
-    </span>
+<span class="add_comment">
+    اضافه کردن نظر
+</span>
 
-    {% if new_comment %}
-        <h2 class="comment_h2">نظر شما اضافه شد در صورت عدم مغایرت با چارچوب بلاگ به زودی منتشر می گردد.</h2>
-    {% else %}
-        <form action="." method="post">
+{% if new_comment %}
+    <h2 class="comment_h2">نظر شما اضافه شد</h2>
+{% else %}
+    <form action="." method="post">
+        <div class="row comment_add_row">
+            <div class="col-md-9 comment_add">
+                <i class='fas fa-user comment_add_icon'></i>
+                <input class="comment_adding" maxlength="30" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+        <div class="row comment_add_row">
+            <div class="col-md-9 comment_add">
+                <i class="far fa-envelope comment_add_icon"></i>
+                <input class="comment_adding" required="required" type="email" placeholder="آدرس ایمیل" name="email">
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+        <div class="row comment_add_row">
+            <div class="comment_add">
+                <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
+                <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
+            </div>
+        </div>
+
+        {% csrf_token %}
+        <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
+    </form>
+{% endif %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">پاسخ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <form action="." method="post" id="popUpForm">
             <div class="row comment_add_row">
                 <div class="col-md-9 comment_add">
                     <i class='fas fa-user comment_add_icon'></i>
@@ -166,55 +187,14 @@
                     <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
                 </div>
             </div>
+            <input id='parent' type="hidden" name="parent_id">
+            <input id='reply_to' type="hidden" name="reply_to_id">
             {% csrf_token %}
             <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
         </form>
-
-    {% endif %}
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">پاسخ</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-
-          </div>
-          <div class="modal-body" id="popUpForm">
-            <form action="." method="post">
-          <div class="modal-body">
-                <div class="row comment_add_row">
-                    <div class="col-md-9 comment_add">
-                        <i class='fas fa-user comment_add_icon'></i>
-                        <input class="comment_adding" maxlength="30" required="required" type="text" placeholder="نام و نام خانوادگی" name="name">
-                    </div>
-                </div>
-
-                <div class="w-100"></div>
-                <div class="row comment_add_row">
-                    <div class="col-md-9 comment_add">
-                        <i class="far fa-envelope comment_add_icon"></i>
-                        <input class="comment_adding" required="required" type="email" placeholder="آدرس ایمیل" name="email">
-                    </div>
-                </div>
-
-                <div class="w-100"></div>
-                <div class="row comment_add_row">
-                    <div class="comment_add">
-                        <i class='far fa-comments comment_add_icon comment_add_icon_textarea'></i>
-                        <textarea placeholder="نظرتتان را بیان کنید" required="required" class="comment_adding comment_add_textarea" name="body"></textarea>
-                    </div>
-                </div>
-                <input type='hidden' id='parent' name="parent_id">
-                <input type='hidden' id='reply_to' name="reply_to_id">
-                {% csrf_token %}
-                <p class="comment_submit_div"><input type="submit" class="comment_submit" value="انتشار نظر"></p>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
-    </div>
+  </div>
 </div>
+
 {% endblock %}
