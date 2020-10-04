@@ -88,7 +88,7 @@
                   </div>
                   {% get_All_Tags 8 as tags %}
                   {% for tag in tags%}
-                    <a class='tag_list' href="tag/{{tag.slug}}">{{tag.name}}</a>
+                    <a class='tag_list' href="/tag/{{tag.slug}}">{{tag.name}}</a>
                   {% endfor %}
 <!--                <p><a href="{% url "blog:post_feed" %}">Subscribe to my RSS feed</a></p>-->
               </div>
